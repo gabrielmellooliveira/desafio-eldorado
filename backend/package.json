@@ -1,12 +1,22 @@
 {
-  "name": "backend",
+  "name": "auto-service-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Auto Service",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "create-database": "npx sequelize-cli db:create",
+    "migrate": "npx sequelize-cli db:migrate",
+    "migrate-revert": "npx sequelize-cli db:migrate:undo",
+    "seed": "npx sequelize-cli db:seed:all",
+    "seed-revert": "npx sequelize-cli db:seed:undo"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "Gabriel Mello de Oliveira",
+  "license": "ISC",
+  "dependencies": {
+    "mysql2": "^2.3.3",
+    "sequelize": "^6.18.0"
+  }
 }
