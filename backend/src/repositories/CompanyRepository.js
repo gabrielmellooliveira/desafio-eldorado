@@ -1,10 +1,9 @@
-const CarModel = require('../database/models/CarModel')
 const CompanyModel = require('../database/models/CompanyModel')
 
-class CarRepository {
-  async add(car) {
+class CompanyRepository {
+  async add(company) {
     try {
-      return await CarModel.create(car)
+      return await CompanyModel.create(company)
     } catch (error) {
       console.log(error.message)
     }
@@ -12,7 +11,7 @@ class CarRepository {
 
   async selectAll() {
     try {
-      return await CarModel.findAll({ include: [ { model: CompanyModel } ] })
+      return await CompanyModel.findAll()
     } catch (error) {
       console.log(error.message)
     }
@@ -20,7 +19,7 @@ class CarRepository {
 
   async selectByFilter(filter) {
     try {
-      return await CarModel.findAll({
+      return await CompanyModel.findAll({
         where: filter
       })
     } catch (error) {
@@ -28,9 +27,9 @@ class CarRepository {
     }
   }
 
-  async update(car) {
+  async update(company) {
     try {
-      return await car.save()
+      return await company.save()
     } catch (error) {
       console.log(error.message)
     }
@@ -38,7 +37,7 @@ class CarRepository {
 
   async remove(id) {
     try {
-      return await CarModel.destroy({
+      return await CompanyModel.destroy({
         where: {
           id
         }
@@ -49,4 +48,4 @@ class CarRepository {
   }
 }
 
-module.exports = CarRepository
+module.exports = CompanyRepository
