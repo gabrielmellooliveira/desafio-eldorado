@@ -1,9 +1,9 @@
 class Car {
-  constructor (model, brand, year, motor) {
+  constructor (model, company, year, color) {
     this._model = model
-    this._brand = brand
+    this._company = company
     this._year = year
-    this._motor = motor
+    this._color = color
   }
 
   getModel() {
@@ -14,12 +14,12 @@ class Car {
     this._model = model
   }
 
-  getBrand() {
-    return this._brand
+  getCompany() {
+    return this._company
   }
 
-  setBrand(brand) {
-    this._brand = brand
+  setCompany(company) {
+    this._company = company
   }
 
   getYear() {
@@ -30,12 +30,12 @@ class Car {
     this._year = year
   }
 
-  getMotor() {
-    return this._motor
+  getColor() {
+    return this._color
   }
 
-  setMotor(motor) {
-    this._motor = motor
+  setColor(color) {
+    this._color = color
   }
 }
 
