@@ -4,8 +4,8 @@
   "description": "Auto Service",
   "main": "index.js",
   "scripts": {
-    "start": "node src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon src/index.js",
+    "test": "jest",
     "create-database": "npx sequelize-cli db:create",
     "migrate": "npx sequelize-cli db:migrate",
     "migrate-revert": "npx sequelize-cli db:migrate:undo",
@@ -20,5 +20,8 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.15",
     "sequelize": "^6.18.0"
+  },
+  "devDependencies": {
+    "jest": "^27.5.1"
   }
 }
