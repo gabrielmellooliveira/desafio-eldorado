@@ -4,7 +4,7 @@
   "description": "Auto Service",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon src/server.js",
     "test": "jest",
     "create-database": "npx sequelize-cli db:create",
     "migrate": "npx sequelize-cli db:migrate",
@@ -22,6 +22,7 @@
     "sequelize": "^6.18.0"
   },
   "devDependencies": {
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "supertest": "^6.2.2"
   }
 }
