@@ -1,7 +1,9 @@
-const CarRoutes = require('./routes/CarRoutes')
+const routes = require('./routes')
 
 const registerRoutes = (app) => {
-  app.use('/cars', CarRoutes)
+  for (const route of routes) {
+    app.use(route.name, route.router)
+  }
 }
 
 module.exports = { registerRoutes }
