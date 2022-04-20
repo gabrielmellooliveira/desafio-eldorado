@@ -1,7 +1,7 @@
 const express = require('express')
 const Controllers = require('../controllers')
 
-const controller = Controllers.CarController
+const controller = Controllers.CompanyController
 
 const router = express.Router()
 
