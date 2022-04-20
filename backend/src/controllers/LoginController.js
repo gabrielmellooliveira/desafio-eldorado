@@ -1,4 +1,5 @@
 const authConfig = require('../config/auth')
+const bcrypt = require('bcrypt')
 
 class LoginController {
   constructor(repository) {
@@ -6,15 +7,20 @@ class LoginController {
   }
 
   post = async (request, response) => {
-    const { login, password } = request.body
+    const { username, password } = request.body
 
-    const validPassword = bcrypt.compareSync(password, userDefault.senhaCriptografada)
+    const encryptedPassword = await bcrypt.hash(password)
 
-    if (login === userDefault.login && validPassword) {
-      const info = { login, data: Date.now().toString() }
+    const user = await this.repository.selectByFilter({ 
+      username, 
+      password: encryptedPassword 
+    })
+
+    if (user) {
+      const info = { username, data: Date.now().toString() }
       const token = jwt.sign(info, authConfig.secreteKey, authConfig.options)
 
-      return response.status(200).json({ user: { login }, token })
+      return response.status(200).json({ token })
     }
 
     return response.status(400).json({ message: 'Login or password incorrects' })
