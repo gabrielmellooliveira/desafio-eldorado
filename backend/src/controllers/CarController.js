@@ -1,17 +1,17 @@
-const CarRepository = require('../repositories/CarRepository')
+const { createResponseContent, createResponseErrors } = require('../utils/responseBuilder')
 
 class CarController {
-  constructor() {
-    this.repository = new CarRepository()
+  constructor(repository) {
+    this.repository = repository
   }
 
-  async get(request, response) {
+  get = async (request, response) => {
     try {
-      const carros = await this.repository.selectAll()
+      const cars = await this.repository.selectAll()
   
-      return response.status(200).json({ carros })
+      return response.status(200).json(createResponseContent(cars))
     } catch (error) {
-      return response.status(400).json({ error: error.message })
+      return response.status(400).json(createResponseErrors([ error.message ]))
     }
   }
 
@@ -19,11 +19,11 @@ class CarController {
     try {
       const { id } = request.params
 
-      const cars = await this.repository.selectByFilter({ id: parseInt(id) })
+      const car = await this.repository.selectByFilter({ id: parseInt(id) })
   
-      return response.status(200).json({ cars })
+      return response.status(200).json(createResponseContent(car))
     } catch (error) {
-      return response.status(400).json({ error: error.message })
+      return response.status(400).json(createResponseErrors([ error.message ]))
     }
   }
 
@@ -40,9 +40,9 @@ class CarController {
 
       const carAdded = await this.repository.add(newCar)
   
-      return response.status(200).json({ car: carAdded })
+      return response.status(200).json(createResponseContent(carAdded))
     } catch (error) {
-      return response.status(400).json({ error: error.message })
+      return response.status(400).json(createResponseErrors([ error.message ]))
     }
   }
 
@@ -59,15 +59,15 @@ class CarController {
         color
       }
 
-      const carsEdited = await this.repository.update(carToEdit)
+      const carEdited = await this.repository.update(carToEdit)
   
-      if (carsEdited > 0) {
-        return response.status(200).json({ message: `Car ${id} edited`, car: carsEdited })
+      if (carEdited > 0) {
+        return response.status(200).json(createResponseContent(carEdited))
       } else {
-        return response.status(404).json({ message: 'Car not found' })
+        return response.status(404).json(createResponseErrors([ 'Car not found' ]))
       }
     } catch (error) {
-      return response.status(400).json({ error: error.message })
+      return response.status(400).json(createResponseErrors([ error.message ]))
     }
   }
 
@@ -75,17 +75,17 @@ class CarController {
     try {
       const { id } = request.params
 
-      const carsRemoved = await this.repository.remove(parseInt(id))
+      const carRemoved = await this.repository.remove(parseInt(id))
   
-      if (carsRemoved > 0) {
-        return response.status(200).json({ message: `Car ${id} deleted` })
+      if (carRemoved > 0) {
+        return response.status(200).json(createResponseContent({ id }))
       } else {
-        return response.status(404).json({ message: 'Car not found' })
+        return response.status(404).json(createResponseErrors([ 'Car not found' ]))
       }
     } catch (error) {
-      return response.status(400).json({ error: error.message })
+      return response.status(400).json(createResponseErrors([ error.message ]))
     }
   }
 }
 
-module.exports = new CarController()
+module.exports = CarController
