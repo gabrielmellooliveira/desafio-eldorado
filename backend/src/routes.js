@@ -1,4 +1,4 @@
-const routes = require('./routes')
+const routes = require('./routes/index')
 
 const registerRoutes = (app) => {
   for (const route of routes) {
