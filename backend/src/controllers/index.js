@@ -7,5 +7,5 @@ const LoginController = require('../controllers/LoginController')
 module.exports = {
   CarController: new CarController(Repositories.CarRepository),
   CompanyController: new CompanyController(Repositories.CompanyRepository),
-  LoginController: new LoginController(Repositories.LoginRepository)
+  LoginController: new LoginController(Repositories.UserRepository)
 }
