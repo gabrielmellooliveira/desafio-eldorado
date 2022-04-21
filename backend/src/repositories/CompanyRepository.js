@@ -29,7 +29,11 @@ class CompanyRepository {
 
   async update(company) {
     try {
-      return await company.save()
+      return await CompanyModel.update(company, {
+        where: {
+          id: company.id
+        }
+      })
     } catch (error) {
       console.log(error.message)
     }
