@@ -1,3 +1,4 @@
+const Car = require('../models/Car')
 const { createResponseContent, createResponseErrors } = require('../utils/responseBuilder')
 
 class CarController {
@@ -15,7 +16,7 @@ class CarController {
     }
   }
 
-  async getOne(request, response) {
+  getOne = async (request, response) => {
     try {
       const { id } = request.params
 
@@ -27,15 +28,14 @@ class CarController {
     }
   }
 
-  async post(request, response) {
+  post = async (request, response) => {
     try {
       const { model, companyId, year, color } = request.body
 
-      const newCar = {
-        model,
-        companyId: parseInt(companyId), 
-        year: parseInt(year), 
-        color
+      const newCar = new Car(model, parseInt(companyId), parseInt(year), color)
+
+      if (!newCar.valid()) {
+        return response.status(400).json(createResponseErrors([ 'Invalid car' ]))
       }
 
       const carAdded = await this.repository.add(newCar)
@@ -46,20 +46,18 @@ class CarController {
     }
   }
 
-  async update(request, response) {
+  put = async (request, response) => {
     try {
       const { id } = request.params
       const { model, companyId, year, color } = request.body
 
-      const carToEdit = {
-        id: parseInt(id),
-        model,
-        companyId: parseInt(companyId), 
-        year: parseInt(year), 
-        color
+      const carToEdit = new Car(model, parseInt(companyId), parseInt(year), color)
+
+      if (!carToEdit.valid()) {
+        return response.status(400).json(createResponseErrors([ 'Invalid car' ]))
       }
 
-      const carEdited = await this.repository.update(carToEdit)
+      const carEdited = await this.repository.update({ id: parseInt(id), ...carToEdit })
   
       if (carEdited > 0) {
         return response.status(200).json(createResponseContent(carEdited))
@@ -71,7 +69,7 @@ class CarController {
     }
   }
 
-  async delete(request, response) {
+  delete = async (request, response) => {
     try {
       const { id } = request.params
 

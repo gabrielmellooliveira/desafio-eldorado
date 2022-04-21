@@ -1,3 +1,4 @@
+const Company = require('../models/Company')
 const { createResponseContent, createResponseErrors } = require('../utils/responseBuilder')
 
 class CompanyController {
@@ -5,7 +6,7 @@ class CompanyController {
     this.repository = repository
   }
 
-  async get(request, response) {
+  get = async (request, response) => {
     try {
       const companies = await this.repository.selectAll()
   
@@ -15,7 +16,7 @@ class CompanyController {
     }
   }
 
-  async getOne(request, response) {
+  getOne = async (request, response) => {
     try {
       const { id } = request.params
 
@@ -27,12 +28,14 @@ class CompanyController {
     }
   }
 
-  async post(request, response) {
+  post = async (request, response) => {
     try {
       const { name } = request.body
 
-      const newCompany = {
-        name
+      const newCompany = new Company(name)
+
+      if (!newCompany.valid()) {
+        return response.status(400).json(createResponseErrors([ 'Invalid company' ]))
       }
 
       const companyAdded = await this.repository.add(newCompany)
@@ -43,17 +46,18 @@ class CompanyController {
     }
   }
 
-  async update(request, response) {
+  put = async (request, response) => {
     try {
       const { id } = request.params
       const { name } = request.body
 
-      const companyToEdit = {
-        id: parseInt(id),
-        name
+      const companyToEdit = new Company(name)
+
+      if (!companyToEdit.valid()) {
+        return response.status(400).json(createResponseErrors([ 'Invalid company' ]))
       }
 
-      const companyEdited = await this.repository.update(companyToEdit)
+      const companyEdited = await this.repository.update({ id: parseInt(id), ...companyToEdit })
   
       if (companyEdited > 0) {
         return response.status(200).json(createResponseContent(companyEdited))
@@ -65,7 +69,7 @@ class CompanyController {
     }
   }
 
-  async delete(request, response) {
+  delete = async (request, response) => {
     try {
       const { id } = request.params
 
