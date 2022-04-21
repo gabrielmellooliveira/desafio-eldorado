@@ -1,5 +1,5 @@
-const CarRoutes = require('./routes/CarRoutes')
-const CompanyRoutes = require('./routes/CompanyRoutes')
+const CarRoutes = require('./CarRoutes')
+const CompanyRoutes = require('./CompanyRoutes')
 
 module.exports = [
   { name: '/cars', router: CarRoutes },
