@@ -3,12 +3,8 @@ class Company {
     this._name = name
   }
 
-  getName() {
-    return this._name
-  }
-
-  setName(name) {
-    this._name = name
+  valid() {
+    return !!(this._name)
   }
 }
 
