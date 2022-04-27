@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon src/server.js",
+    "testing": "set NODE_ENV=test && nodemon src/server.js",
     "dev": "nodemon -r dotenv/config src/server.js",
     "test": "jest",
     "create-database": "npx sequelize-cli db:create",
