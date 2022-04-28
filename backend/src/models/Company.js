@@ -1,10 +1,10 @@
 class Company {
   constructor (name) {
-    this._name = name
+    this.name = name
   }
 
   valid() {
-    return !!(this._name)
+    return !!(this.name)
   }
 }
 
