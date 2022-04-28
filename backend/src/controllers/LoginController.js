@@ -19,16 +19,12 @@ class LoginController {
         return response.status(400).json(createResponseErrors([ 'Invalid user' ]))
       }
 
-      console.log(user)
-
       const encryptedPassword = await bcrypt.hash(password, 10)
 
       const validUser = await this.repository.selectByFilter({ 
         username, 
         password: encryptedPassword 
       })
-
-      console.log(validUser)
 
       if (validUser) {
         const info = { username, data: Date.now().toString() }
