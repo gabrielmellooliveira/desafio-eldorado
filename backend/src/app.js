@@ -1,6 +1,6 @@
-require('dotenv').config({
-  path: process.env.NODE_ENV.trim() === 'test' ? '.env.testing' : '.env'
-})
+// require('dotenv').config({
+//   path: process.env.NODE_ENV.trim() === 'test' ? '.env.testing' : '.env'
+// })
 
 const express = require('express')
 const cors = require('cors')
