@@ -1,0 +1,44 @@
+<app-menu [name]="menuName"></app-menu>
+
+<p-toolbar>
+  <p style="font-size: 28px; font-weight: bold; margin: 0px;">Company management</p>
+  <button pButton pRipple label="New company" icon="pi pi-plus" class="p-button-sm p-button-success" (click)="onNewCompany()"></button>
+</p-toolbar>
+
+<p-table [value]="companies" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Company name</th>
+      <th style="width: 150px; max-width: 150px !important;"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-company>
+    <tr>
+      <td>{{company.id}}</td>
+      <td>{{company.name}}</td>
+      <td>
+        <button pButton type="button" icon="pi pi-trash" class="p-button-raised p-button-danger p-button-rounded" (click)="onDeleteCompany(company.id)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="newCompanyDialog" [style]="{width: '450px'}" header="New Company" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+        <label for="model">Company name</label>
+        <input type="text" pInputText id="model" [(ngModel)]="newCompany.name" required autofocus />
+        <!-- <small class="p-error" *ngIf="submitted && !product.name">Model is required.</small> -->
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideNewCompanyDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveCompany()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
+<p-toast position="bottom-right"></p-toast>

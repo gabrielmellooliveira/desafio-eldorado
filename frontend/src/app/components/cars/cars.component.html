@@ -1,0 +1,64 @@
+<app-menu [name]="menuName"></app-menu>
+
+<p-toolbar>
+  <p style="font-size: 28px; font-weight: bold; margin: 0px;">Car management</p>
+  <button pButton pRipple label="New car" icon="pi pi-plus" class="p-button-sm p-button-success" (click)="onNewCar()"></button>
+</p-toolbar>
+
+<p-table [value]="cars" responsiveLayout="scroll">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Id</th>
+      <th>Model</th>
+      <th>Company</th>
+      <th>Year</th>
+      <th>Color</th>
+      <th style="width: 150px; max-width: 150px !important;"></th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-car>
+    <tr>
+      <td>{{car.id}}</td>
+      <td>{{car.model}}</td>
+      <td>{{car.company.name}}</td>
+      <td>{{car.year}}</td>
+      <td>{{car.color}}</td>
+      <td>
+        <button pButton type="button" icon="pi pi-trash" class="p-button-raised p-button-danger p-button-rounded" (click)="onDeleteCar(car.id)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="newCarDialog" [style]="{width: '450px'}" header="New Car" [modal]="true" styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="field">
+        <label for="model">Model</label>
+        <input type="text" pInputText id="model" [(ngModel)]="newCar.model" required autofocus />
+        <!-- <small class="p-error" *ngIf="submitted && !product.name">Model is required.</small> -->
+    </div>
+    <div class="field">
+      <label for="companies">Companies</label>
+      <p-dropdown [options]="companies" [(ngModel)]="newCar.company" optionLabel="name"></p-dropdown>
+    </div>
+    <div class="field">
+      <label for="year">Year</label>
+      <input type="text" pInputText id="year" [(ngModel)]="newCar.year" required autofocus />
+      <!-- <small class="p-error" *ngIf="submitted && !product.name">Model is required.</small> -->
+    </div>
+    <div class="field">
+      <label for="color">Color</label>
+      <input type="text" pInputText id="color" [(ngModel)]="newCar.color" required autofocus />
+      <!-- <small class="p-error" *ngIf="submitted && !product.name">Model is required.</small> -->
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-danger" (click)="hideNewCarDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-success" (click)="saveCar()"></button>
+  </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '50vw'}" [baseZIndex]="10000" rejectButtonStyleClass="p-button-text"></p-confirmDialog>
+
+<p-toast position="bottom-right"></p-toast>

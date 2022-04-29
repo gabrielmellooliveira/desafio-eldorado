@@ -1,5 +1,5 @@
 module.exports = {
-  database: 'auto-service-5-test', //process.env.NOME_DO_BANCO_DE_DADOS,
+  database: 'auto-service-5', //process.env.NOME_DO_BANCO_DE_DADOS,
   username: 'admin',
   password: 'gabrieladmin',
   dialect: 'mysql',
